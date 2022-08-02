@@ -1,0 +1,20 @@
+.bg-blue-300 {
+  width: 35%;
+  height: 50vh;
+  padding-top: 15px;
+  border-radius: 35px;
+  margin-left: 30%;
+  margin-top: 10%;
+  border: 1px solid rgb(175, 172, 172);
+  box-shadow: 2px 2px 24px gray;
+}
+.login {
+  width: 35%;
+  height: 45vh;
+  padding-top: 15px;
+  border-radius: 35px;
+  margin-left: 30%;
+  margin-top: 10%;
+  border: 1px solid rgb(175, 172, 172);
+  box-shadow: 2px 2px 24px gray;
+}

@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
-
-const professions = ["Developer", "Designer", "Other"];
 
 const Register = (props) => {
   const formik = useFormik({
@@ -13,13 +11,14 @@ const Register = (props) => {
       email: "",
       password: "",
     },
+    //fetching data from backend
     onSubmit: function (values) {
       console.log(values);
       axios
         .post("http://localhost:1335/api/register", values)
         .then((res) => {
           toast.success("Successs");
-          props.history.push("/login");
+
           console.log(res);
         })
         .catch((err) => {
@@ -47,6 +46,7 @@ const Register = (props) => {
             onBlur={formik.handleBlur}
             value={formik.values.name}
             placeholder="Full Name"
+            required
           />
           {formik.touched.name && formik.errors.name && (
             <span className="text-red-400">{formik.errors.name}</span>
@@ -67,6 +67,7 @@ const Register = (props) => {
             onBlur={formik.handleBlur}
             value={formik.values.email}
             placeholder="Email"
+            required
           />
           {formik.touched.email && formik.errors.email && (
             <span className="text-red-400">{formik.errors.email}</span>
@@ -88,6 +89,7 @@ const Register = (props) => {
             onBlur={formik.handleBlur}
             value={formik.values.password}
             placeholder="Password"
+            required
           />
         </div>
         <div className="text-center">

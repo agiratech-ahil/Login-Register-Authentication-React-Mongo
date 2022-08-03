@@ -3,12 +3,14 @@ const User = require("./userSchema");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+//Validation for resgister form
 router.post("/register", async (req, res) => {
   try {
     var emailExist = await User.findOne({ email: req.body.email });
     if (emailExist) {
-      return res.status(400).json("Email already exists");
+      return res.status(400).json("Email already exists!");
     }
+
     var hash = await bcrypt.hash(req.body.password, 10);
     const user = new User({
       name: req.body.name,
@@ -22,18 +24,21 @@ router.post("/register", async (req, res) => {
   }
 });
 
+//Validation for Login form
+
 router.post("/login", async (req, res) => {
   try {
     var userData = await User.findOne({
       email: req.body.email,
     });
     if (!userData) {
-      return res.status(400).json("Email doesnot exist");
+      return res.status(400).json("Email doesnot exist!");
     }
+
     var pwd = await bcrypt.compare(req.body.password, userData.password);
 
     if (!pwd) {
-      return res.status(400).json("Password not valid");
+      return res.status(400).json("Password not valid!");
     }
     var userToken = jwt.sign({ email: userData.email }, "secret");
     res.header("auth", userToken).json(userToken);
@@ -47,7 +52,7 @@ const validUser = (req, res, next) => {
   req.token = token;
   next();
 };
-
+//JWT Authentication
 router.get("/getAll", validUser, async (req, res) => {
   jwt.verify(req.token, "secret", async (err, data) => {
     if (err) {

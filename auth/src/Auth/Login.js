@@ -10,6 +10,7 @@ const Login = (props) => {
       email: "",
       password: "",
     },
+    //fetching data from backend
     onSubmit: function (data) {
       axios
         .post("http://localhost:1335/api/login", data)
@@ -17,7 +18,6 @@ const Login = (props) => {
           toast.success("Logged in successfully");
           console.log(res.data);
           localStorage.setItem("auth", JSON.stringify(res.data));
-          props.history.push("/register");
         })
         .catch((err) => {
           toast.error(err.response.data);
@@ -45,6 +45,7 @@ const Login = (props) => {
             onBlur={formik.handleBlur}
             value={formik.values.email}
             placeholder="Email"
+            required
           />
           {formik.touched.email && formik.errors.email && (
             <span className="text-red-400">{formik.errors.email}</span>
@@ -58,13 +59,14 @@ const Login = (props) => {
             name="password"
             id="pwd"
             className={`block w-full rounded border py-1 px-2 ${
-              formik.touched.age && formik.errors.age
+              formik.touched.password && formik.errors.password
                 ? "border-red-400"
                 : "border-gray-300"
             }`}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             placeholder="Password"
+            required
           />
           {formik.touched.age && formik.errors.age && (
             <span className="text-red-400">{formik.errors.age}</span>

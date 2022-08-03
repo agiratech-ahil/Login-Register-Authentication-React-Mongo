@@ -4,7 +4,10 @@ import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
 
+import { useNavigate } from "react-router-dom";
+
 const Login = (props) => {
+  let loginNavigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -16,6 +19,7 @@ const Login = (props) => {
         .post("http://localhost:1335/api/login", data)
         .then((res) => {
           toast.success("Logged in successfully");
+          loginNavigate("/home");
           console.log(res.data);
           localStorage.setItem("auth", JSON.stringify(res.data));
         })

@@ -1,10 +1,11 @@
 import React from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 
 const Register = (props) => {
+  let navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -18,7 +19,7 @@ const Register = (props) => {
         .post("http://localhost:1335/api/register", values)
         .then((res) => {
           toast.success("Successs");
-
+          navigate("/login");
           console.log(res);
         })
         .catch((err) => {
@@ -101,7 +102,7 @@ const Register = (props) => {
           </button>
           <br></br>
           <br></br>
-          <Link to="/login" className="link">
+          <Link to="/login" classname="Link">
             Login
           </Link>
         </div>
